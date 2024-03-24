@@ -2,4 +2,40 @@
 
 {% block content %}
 <h1>Hellow World :) </h1>
+{% if api %}
+{% if api == 'Error' %}
+    <p> Error in parsing json data </p>
+
+    {% else %}
+
+    <div class="mt-4 p-5 bg-primary text-white rounded">
+        <h1 class="display-4">{{api.0.Category.Name}}</h1>
+        <p class="lead">Area {{api.0.ReportingArea}} AQI is {{api.0.AQI}}.</p>
+        <hr class="my-4">
+        {% if api.0.Category.Number == 1 %}
+            <p>Air quality is considered satisfactory, and air pollution poses little or no risk.</p>
+        {% elif api.0.Category.Number == 2 %}
+            <p>Air quality is acceptable; however, for some pollutants there may be a moderate health concern for a very small number of people who are unusually sensitive to air pollution.</p>
+        {% elif api.0.Category.Number == 3 %}
+            <p>Members of sensitive groups may experience health effects. The general public is not likely to be affected.</p>
+        {% elif api.0.Category.Number == 4 %}
+            <p>Everyone may begin to experience health effects; members of sensitive groups may experience more serious health effects.</p>
+        {% elif api.0.Category.Number == 5 %}
+            <p>Health alert: everyone may experience more serious health effects.</p>
+        {% elif api.0.Category.Number == 6 %}
+        <p>	Health warnings of emergency conditions. The entire population is more likely to be affected.</p>
+        {% elif api.0.Category.Number == 7 %}
+        <p>Data in unavailable</p>
+        {% endif %}
+        
+        {% comment %} <a class="btn btn-primary btn-lg" href="#" role="button">Learn more</a> {% endcomment %}
+      </div>
+      
+
+{% endif %}
+{% else %}
+<p> Data is not provided </p>
+{% endif %}
+<br/>
+{% comment %} {{api}} {% endcomment %}
 {% endblock %}
